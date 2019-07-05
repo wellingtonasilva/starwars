@@ -33,5 +33,11 @@ class AppUtils {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         }
+
+        fun extractIdFromURL(url: String): Long {
+            val regex = """\d+""".toRegex()
+            val matchResult = regex.find(url)
+            return matchResult?.value?.toLong() ?: 0L
+        }
     }
 }

@@ -2,4 +2,11 @@
     <string name="app_name">StarWars</string>
     <string name="app_home">Home</string>
     <string name="app_about">About</string>
+    <string name="app_people_name">Name</string>
+    <string name="app_especie">Species: %1$s</string>
+    <string name="app_vehicles">Vehicles: %1$s</string>
+    <string name="app_developer_name">Wellington A. Silva</string>
+    <string name="app_born">Data Nascimento: 17/12/1977</string>
+    <string name="app_github">GitHub: https://github.com/wellingtonasilva</string>
+    <string name="app_twitter">Twitter: @wellingtonasilv</string>
 </resources>
