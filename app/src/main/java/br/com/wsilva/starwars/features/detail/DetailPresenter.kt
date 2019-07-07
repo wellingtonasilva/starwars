@@ -4,7 +4,6 @@ import android.util.Log
 import br.com.wsilva.starwars.di.AppPeopleRepository
 import br.com.wsilva.starwars.di.AppSchedulers
 import br.com.wsilva.starwars.model.dto.PeopleDTO
-import br.com.wsilva.starwars.model.repository.*
 import br.com.wsilva.starwars.service.RestApi
 import br.com.wsilva.starwars.util.AppUtils
 import io.reactivex.Observable
@@ -19,7 +18,8 @@ class DetailPresenter: DetailContract.Presenter {
     val bag: CompositeDisposable
     val schedulers: AppSchedulers
     val repository: AppPeopleRepository
-    var personId = 0L
+    var peopleId = 0L
+    var peopleName = ""
 
     @Inject
     constructor(view: DetailContract.View, api: RestApi, bag: CompositeDisposable, schedulers: AppSchedulers,
@@ -45,9 +45,21 @@ class DetailPresenter: DetailContract.Presenter {
                 .flatMap { peopleDTO -> getAllSpecies(id, peopleDTO) }
                 .flatMap { peopleDTO -> getAllStarships(id, peopleDTO) }
                 .flatMap { peopleDTO -> getAllVehicles(id, peopleDTO) }
+                .doOnComplete { loadVehicles(peopleId) }
+                .subscribeOn(schedulers.io())
+                .doOnComplete { loadVehicles(peopleId) }
+                .subscribe { loadVehicles(peopleId) }
+        )
+    }
+
+    fun loadVehicles(peopleId: Long) {
+        Log.d("### ", "loadVehicles")
+        bag.add(
+            repository.vehiclesRepository
+                .listAllByPeopleId(peopleId)
                 .observeOn(schedulers.ui())
                 .subscribeOn(schedulers.io())
-                .subscribe { it -> Log.d("### ", it.name) }
+                .subscribe { view.showVehicles(it) }
         )
     }
 

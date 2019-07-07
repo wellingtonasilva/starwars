@@ -9,4 +9,9 @@
     <string name="app_born">Data Nascimento: 17/12/1977</string>
     <string name="app_github">GitHub: https://github.com/wellingtonasilva</string>
     <string name="app_twitter">Twitter: @wellingtonasilv</string>
+    <string name="app_genero">Gênero</string>
+    <string name="app_planeta_natal">Planeta Natal</string>
+    <string name="app_cor_pele">Cor da Pele</string>
+    <string name="app_veiculos">Veículos</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

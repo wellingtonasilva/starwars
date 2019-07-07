@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import br.com.wsilva.starwars.AppApplication
 import br.com.wsilva.starwars.R
 import br.com.wsilva.starwars.constants.AppConstants
@@ -57,7 +56,8 @@ class HomeFragment: Fragment(), HomeContract.View {
 
     override fun showPeople(list: List<PeopleDTO>) {
         val adapter = HomeAdapter(activity!!, list, object: HomeAdapter.HomeAdapterListener {
-            override fun OnClickListener(people: PeopleDTO) = showDetail(AppUtils.extractIdFromURL(people.url))
+            override fun OnClickListener(people: PeopleDTO) = showDetail(AppUtils.extractIdFromURL(people.url),
+                people.name)
         })
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -65,10 +65,11 @@ class HomeFragment: Fragment(), HomeContract.View {
         recyclerView.adapter = adapter
     }
 
-    override fun showDetail(personId: Long) {
+    override fun showDetail(id: Long, name: String) {
         val intent = Intent(context, DetailActivity::class.java)
         val bundle = Bundle()
-        bundle.putLong(AppConstants.KEY_PERSON_ID, personId)
+        bundle.putLong(AppConstants.KEY_PEOPLE_ID, id)
+        bundle.putString(AppConstants.KEY_PEOPLE_NAME, name)
         intent.putExtras(bundle)
         startActivity(intent)
     }

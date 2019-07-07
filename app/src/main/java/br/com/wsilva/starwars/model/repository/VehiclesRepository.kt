@@ -8,6 +8,7 @@ import io.reactivex.Flowable
 
 class VehiclesRepository(private val dao: VehiclesDAO): BasicRepository<VehiclesEntity>(dao) {
     override fun listAll(): Flowable<List<VehiclesEntity>> = dao.listAll()
+    fun listAllByPeopleId(personId: Long): Flowable<List<VehiclesEntity>> = dao.listAllByPeopleId(personId)
     override fun get(id: Long): VehiclesEntity = dao.get(id)
     override fun delete(entity: VehiclesEntity): Int = dao.delete(entity)
     override fun insert(entity: VehiclesEntity): Long = dao.insert(entity)

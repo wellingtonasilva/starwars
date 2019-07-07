@@ -7,7 +7,7 @@ import br.com.wsilva.starwars.model.dto.PeopleDTO
 interface HomeContract {
     interface View {
         fun showPeople(list: List<PeopleDTO>)
-        fun showDetail(personId: Long)
+        fun showDetail(id: Long, name: String)
     }
 
     interface Presenter: BasicPresenter {
