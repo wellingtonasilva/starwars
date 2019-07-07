@@ -4,8 +4,9 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
+              android:background="#282727"
 >
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
@@ -13,10 +14,13 @@
             android:layout_weight="1"
     />
 
-    <android.support.design.widget.BottomNavigationView
+    <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="?android:attr/windowBackground"/>
+            android:background="#CC282727"
+            app:itemIconTint="#959E4F60"
+            app:itemTextColor="#999E4F60"
+            app:menu="@menu/menu_principal" />
 </LinearLayout>

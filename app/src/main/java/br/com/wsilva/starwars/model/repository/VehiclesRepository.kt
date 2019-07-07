@@ -14,10 +14,10 @@ class VehiclesRepository(private val dao: VehiclesDAO): BasicRepository<Vehicles
     override fun insert(entity: VehiclesEntity): Long = dao.insert(entity)
     override fun update(entity: VehiclesEntity): Int = dao.update(entity)
 
-    fun save(id: Long, vehicles: VehiclesDTO): Long {
-        var entity = get(id)
+    fun save(vehicles: VehiclesDTO): Long {
+        var entity = get(vehicles.id)
         return if (entity == null) {
-            entity = VehiclesEntity(id = id, passengers = vehicles.passengers, model = vehicles.model,
+            entity = VehiclesEntity(id = vehicles.id, passengers = vehicles.passengers, model = vehicles.model,
                 max_atmosphering_speed = vehicles.max_atmosphering_speed, manufacturer = vehicles.manufacturer,
                 length = vehicles.length, crew = vehicles.crew, cost_in_credits = vehicles.cost_in_credits,
                 consumables = vehicles.consumables, cargo_capacity = vehicles.cargo_capacity, created = vehicles.created,

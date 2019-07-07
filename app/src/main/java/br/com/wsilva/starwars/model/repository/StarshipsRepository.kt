@@ -13,10 +13,10 @@ class StarshipsRepository(private val dao: StarshipsDAO): BasicRepository<Starsh
     override fun insert(entity: StarshipsEntity): Long = dao.insert(entity)
     override fun update(entity: StarshipsEntity): Int = dao.update(entity)
 
-    fun save(id: Long, starshipsDTO: StarshipsDTO): Long {
-        var entity = get(id)
+    fun save(starshipsDTO: StarshipsDTO): Long {
+        var entity = get(starshipsDTO.id)
         if (entity == null) {
-            entity = StarshipsEntity(id = id, name = starshipsDTO.name, url = starshipsDTO.url,
+            entity = StarshipsEntity(id = starshipsDTO.id, name = starshipsDTO.name, url = starshipsDTO.url,
                 edited = starshipsDTO.edited,
                 created = starshipsDTO.created, cargo_capacity = starshipsDTO.cargo_capacity,
                 consumables = starshipsDTO.consumables,

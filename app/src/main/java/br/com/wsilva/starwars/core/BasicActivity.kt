@@ -1,13 +1,13 @@
 package br.com.wsilva.starwars.core
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AppCompatActivity
 
 open class BasicActivity: AppCompatActivity()
 {
-    fun addFragmentToActivity(fragmentManager: FragmentManager,
-                              fragment: Fragment,
+    fun addFragmentToActivity(fragmentManager: androidx.fragment.app.FragmentManager,
+                              fragment: androidx.fragment.app.Fragment,
                               frameId: Int,
                               tag: String)
     {

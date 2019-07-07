@@ -1,13 +1,8 @@
 package br.com.wsilva.starwars.features.detail
 
-import android.util.Log
 import br.com.wsilva.starwars.di.AppPeopleRepository
 import br.com.wsilva.starwars.di.AppSchedulers
-import br.com.wsilva.starwars.model.dto.PeopleDTO
 import br.com.wsilva.starwars.service.RestApi
-import br.com.wsilva.starwars.util.AppUtils
-import io.reactivex.Observable
-import io.reactivex.ObservableSource
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
@@ -38,22 +33,10 @@ class DetailPresenter: DetailContract.Presenter {
     }
 
     override fun loadPerson(id: Long) {
-        bag.add(
-            api.getPeople(id)
-                .map { savePeople(id, it)}
-                .flatMap{ peopleDTO -> getAllFilms(id, peopleDTO) }
-                .flatMap { peopleDTO -> getAllSpecies(id, peopleDTO) }
-                .flatMap { peopleDTO -> getAllStarships(id, peopleDTO) }
-                .flatMap { peopleDTO -> getAllVehicles(id, peopleDTO) }
-                .doOnComplete { loadVehicles(peopleId) }
-                .subscribeOn(schedulers.io())
-                .doOnComplete { loadVehicles(peopleId) }
-                .subscribe { loadVehicles(peopleId) }
-        )
+
     }
 
     fun loadVehicles(peopleId: Long) {
-        Log.d("### ", "loadVehicles")
         bag.add(
             repository.vehiclesRepository
                 .listAllByPeopleId(peopleId)
@@ -61,58 +44,5 @@ class DetailPresenter: DetailContract.Presenter {
                 .subscribeOn(schedulers.io())
                 .subscribe { view.showVehicles(it) }
         )
-    }
-
-    fun savePeople(id: Long, peopleDTO: PeopleDTO): PeopleDTO {
-        return repository.peopleRepository.save(id, peopleDTO)
-    }
-
-    fun getAllFilms(peopleId: Long, peopleDTO: PeopleDTO): Observable<PeopleDTO> {
-        return Observable.create<String> { it ->
-            peopleDTO.films.forEach { item -> it.onNext(item) }
-            it.onComplete()
-        }.flatMap { url -> api.getFilm(AppUtils.extractIdFromURL(url)) }
-            .flatMap { ObservableSource<Long> { e -> e.onNext(repository.filmsRepository.save(AppUtils.extractIdFromURL(it.url), it))}}
-            .flatMap { filmId ->  ObservableSource<Boolean> { e -> e.onNext(repository.peopleFilmsRepository.save(peopleId, filmId))}}
-            .flatMap { ObservableSource<PeopleDTO> { e -> e.onNext(peopleDTO) } }
-            .observeOn(schedulers.ui())
-            .subscribeOn(schedulers.io())
-
-    }
-
-    fun getAllSpecies(peopleId: Long, peopleDTO: PeopleDTO): Observable<PeopleDTO> {
-        return Observable.create<String> { it ->
-            peopleDTO.species.forEach { item -> it.onNext(item) }
-            it.onComplete()
-        }.flatMap { url -> api.getSpecies(AppUtils.extractIdFromURL(url))}
-            .flatMap { ObservableSource<Long> { e -> e.onNext(repository.speciesRepository.save(AppUtils.extractIdFromURL(it.url), it))}}
-            .flatMap { speciesId -> ObservableSource<Boolean> { e -> e.onNext(repository.peopleSpeciesRepository.save(peopleId, speciesId)) } }
-            .flatMap { ObservableSource<PeopleDTO> { e -> e.onNext(peopleDTO) } }
-            .observeOn(schedulers.ui())
-            .subscribeOn(schedulers.io())
-    }
-
-    fun getAllStarships(peopleId: Long, peopleDTO: PeopleDTO): Observable<PeopleDTO> {
-        return Observable.create<String> { it ->
-            peopleDTO.starships.forEach { item -> it.onNext(item) }
-            it.onComplete()
-        }.flatMap { url -> api.getStarships(AppUtils.extractIdFromURL(url))}
-            .flatMap { ObservableSource<Long> { e -> e.onNext(repository.starshipsRepository.save(AppUtils.extractIdFromURL(it.url), it))}}
-            .flatMap { starshipsId -> ObservableSource<Boolean> { e -> e.onNext(repository.peopleStarshipsRepository.save(peopleId, starshipsId))} }
-            .flatMap { ObservableSource<PeopleDTO> { e -> e.onNext(peopleDTO) } }
-            .observeOn(schedulers.ui())
-            .subscribeOn(schedulers.io())
-    }
-
-    fun getAllVehicles(peopleId: Long, peopleDTO: PeopleDTO): Observable<PeopleDTO> {
-        return Observable.create<String> { it ->
-            peopleDTO.vehicles.forEach { item -> it.onNext(item) }
-            it.onComplete()
-        }.flatMap { url -> api.getVehicles(AppUtils.extractIdFromURL(url)) }
-            .flatMap { ObservableSource<Long> { e -> e.onNext(repository.vehiclesRepository.save(AppUtils.extractIdFromURL(it.url), it))}}
-            .flatMap { vehiclesId -> ObservableSource<Boolean> { e -> e.onNext(repository.peopleVehiclesRepository.save(peopleId, vehiclesId))} }
-            .flatMap { ObservableSource<PeopleDTO> { e -> e.onNext(peopleDTO) } }
-            .observeOn(schedulers.ui())
-            .subscribeOn(schedulers.io())
     }
 }

@@ -1,9 +1,11 @@
 package br.com.wsilva.starwars.model.repository
 
+import br.com.wsilva.starwars.constants.AppConstants
 import br.com.wsilva.starwars.core.BasicRepository
 import br.com.wsilva.starwars.model.dao.PersonDAO
 import br.com.wsilva.starwars.model.dto.PeopleDTO
 import br.com.wsilva.starwars.model.entity.PeopleEntity
+import br.com.wsilva.starwars.util.AppUtils
 import io.reactivex.Flowable
 
 class PeopleRepository(private val dao: PersonDAO): BasicRepository<PeopleEntity>(dao) {
@@ -24,5 +26,10 @@ class PeopleRepository(private val dao: PersonDAO): BasicRepository<PeopleEntity
             insert(entity)
         }
         return peopleDTO
+    }
+
+    fun save(list: List<PeopleDTO>): List<PeopleDTO> {
+        list.forEach { item -> save(AppUtils.extractIdFromURL(item.url), item)}
+        return list
     }
 }

@@ -1,6 +1,6 @@
 package br.com.wsilva.starwars.model.dao
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import br.com.wsilva.starwars.core.BasicDAO
 import br.com.wsilva.starwars.model.entity.SpeciesEntity
 import io.reactivex.Flowable

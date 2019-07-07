@@ -1,10 +1,10 @@
 package br.com.wsilva.starwars.features.detail
 
 import android.os.Bundle
-import android.support.animation.DynamicAnimation
-import android.support.animation.FlingAnimation
-import android.support.design.widget.FloatingActionButton
-import android.support.v7.widget.LinearLayoutManager
+import androidx.dynamicanimation.animation.DynamicAnimation
+import androidx.dynamicanimation.animation.FlingAnimation
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,7 +63,9 @@ class DetailFragment: BasicFragment(), DetailContract.View {
     }
 
     override fun showGeneralInformation(people: PeopleEntity) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        lblGenero.text = people.gender
+        lblPlanetaNatal.text = people.homeworld
+        lblCorPele.text = people.skinColor
     }
 
     override fun showVehicles(list: List<VehiclesEntity>) {
@@ -73,7 +75,7 @@ class DetailFragment: BasicFragment(), DetailContract.View {
             }
         })
         rcvListaVeiculos.setHasFixedSize(true)
-        rcvListaVeiculos.layoutManager = LinearLayoutManager(activity)
+        rcvListaVeiculos.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         rcvListaVeiculos.adapter = adapter
     }
 

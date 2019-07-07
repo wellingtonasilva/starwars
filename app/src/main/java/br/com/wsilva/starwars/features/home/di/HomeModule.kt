@@ -1,5 +1,6 @@
 package br.com.wsilva.starwars.features.home.di
 
+import br.com.wsilva.starwars.di.AppPeopleRepository
 import br.com.wsilva.starwars.di.AppSchedulers
 import br.com.wsilva.starwars.features.home.HomeContract
 import br.com.wsilva.starwars.features.home.HomePresenter
@@ -16,7 +17,7 @@ class HomeModule(private val view: HomeContract.View) {
 
     @Provides
     fun providesHomePresenter(view: HomeContract.View, api: RestApi, bag: CompositeDisposable,
-                              schedulers: AppSchedulers): HomeContract.Presenter {
-        return HomePresenter(view, api, bag, schedulers)
+                              schedulers: AppSchedulers, repository: AppPeopleRepository): HomeContract.Presenter {
+        return HomePresenter(view, api, bag, schedulers, repository)
     }
 }

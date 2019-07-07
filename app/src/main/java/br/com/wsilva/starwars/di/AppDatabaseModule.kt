@@ -1,7 +1,7 @@
 package br.com.wsilva.starwars.di
 
 import android.app.Application
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import br.com.wsilva.starwars.model.dao.*
 import br.com.wsilva.starwars.model.db.AppDatabase
 import br.com.wsilva.starwars.model.repository.*

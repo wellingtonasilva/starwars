@@ -1,6 +1,6 @@
 package br.com.wsilva.starwars.core
 
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 
-open class BasicFragment: Fragment() {
+open class BasicFragment: androidx.fragment.app.Fragment() {
 }

@@ -3,6 +3,7 @@ package br.com.wsilva.starwars.model.dto
 import com.google.gson.annotations.SerializedName
 
 data class FilmsDTO (
+    var id: Long = 0,
     @SerializedName( "title") val title: String,
     @SerializedName( "episode_id") val episodeId: Int,
     @SerializedName( "opening_crawl") val opening_crawl: String,

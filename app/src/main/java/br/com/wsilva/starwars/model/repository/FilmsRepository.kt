@@ -13,10 +13,10 @@ class FilmsRepository (private val dao: FilmsDAO): BasicRepository<FilmsEntity>(
     override fun insert(entity: FilmsEntity): Long = dao.insert(entity)
     override fun update(entity: FilmsEntity): Int = dao.update(entity)
 
-    fun save(id: Long, filmsDTO: FilmsDTO): Long {
-        var entity = get(id)
+    fun save(filmsDTO: FilmsDTO): Long {
+        var entity = get(filmsDTO.id)
         if (entity == null) {
-            entity = FilmsEntity(id = id, url = filmsDTO.url, edited = filmsDTO.edited,
+            entity = FilmsEntity(id = filmsDTO.id, url = filmsDTO.url, edited = filmsDTO.edited,
                 created = filmsDTO.created, director = filmsDTO.director, episodeId = filmsDTO.episodeId,
                 opening_crawl = filmsDTO.opening_crawl, producer = filmsDTO.producer,
                 release_date = filmsDTO.release_date, title = filmsDTO.title)

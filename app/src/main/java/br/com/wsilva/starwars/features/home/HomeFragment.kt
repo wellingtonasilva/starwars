@@ -2,9 +2,9 @@ package br.com.wsilva.starwars.features.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +20,7 @@ import br.com.wsilva.starwars.util.AppUtils
 import kotlinx.android.synthetic.main.lay_home_fragment.*
 import javax.inject.Inject
 
-class HomeFragment: Fragment(), HomeContract.View {
+class HomeFragment: androidx.fragment.app.Fragment(), HomeContract.View {
 
     @Inject
     lateinit var presenter: HomeContract.Presenter
@@ -46,6 +46,7 @@ class HomeFragment: Fragment(), HomeContract.View {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         val view = inflater?.inflate(R.layout.lay_home_fragment, container, false)
+        activity!!.title = getText(R.string.app_star_war_people)
         return view
     }
 
@@ -60,8 +61,13 @@ class HomeFragment: Fragment(), HomeContract.View {
                 people.name)
         })
         recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
+        recyclerView.addItemDecoration(
+            androidx.recyclerview.widget.DividerItemDecoration(
+                context,
+                androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
+            )
+        )
         recyclerView.adapter = adapter
     }
 

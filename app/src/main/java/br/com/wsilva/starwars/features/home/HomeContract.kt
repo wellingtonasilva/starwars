@@ -12,6 +12,6 @@ interface HomeContract {
 
     interface Presenter: BasicPresenter {
         fun loadAllPeople()
-        fun afterLoadAllPeople(result: List<PeopleDTO>)
+        fun afterLoadAllPeople()
     }
 }

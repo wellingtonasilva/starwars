@@ -13,10 +13,10 @@ class SpeciesRepository(private val dao: SpeciesDAO): BasicRepository<SpeciesEnt
     override fun insert(entity: SpeciesEntity): Long = dao.insert(entity)
     override fun update(entity: SpeciesEntity): Int = dao.update(entity)
 
-    fun save(id: Long, speciesDTO: SpeciesDTO): Long {
-        var entity = get(id)
+    fun save(speciesDTO: SpeciesDTO): Long {
+        var entity = get(speciesDTO.id)
         if (entity == null) {
-            entity = SpeciesEntity(id = id, created = speciesDTO.created, edited = speciesDTO.edited,
+            entity = SpeciesEntity(id = speciesDTO.id, created = speciesDTO.created, edited = speciesDTO.edited,
                 url = speciesDTO.url, homeworld = speciesDTO.homeworld, name = speciesDTO.name,
                 language = speciesDTO.language, average_height = speciesDTO.average_height,
                 average_lifespan = speciesDTO.average_lifespan, classification = speciesDTO.classification,

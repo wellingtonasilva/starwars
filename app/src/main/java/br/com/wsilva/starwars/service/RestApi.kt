@@ -16,14 +16,14 @@ interface RestApi {
     fun getPeople(@Path("id") id: Long): Observable<PeopleDTO>
 
     @GET("api/films/{id}")
-    fun getFilm(@Path("id") id: Long): Observable<FilmsDTO>
+    fun getFilm(@Path("id") id: Long): Call<FilmsDTO>
 
     @GET("api/species/{id}")
-    fun getSpecies(@Path("id") id: Long): Observable<SpeciesDTO>
+    fun getSpecies(@Path("id") id: Long): Call<SpeciesDTO>
 
     @GET("api/vehicles/{id}")
-    fun getVehicles(@Path("id") id: Long): Observable<VehiclesDTO>
+    fun getVehicles(@Path("id") id: Long): Call<VehiclesDTO>
 
     @GET("api/starships/{id}")
-    fun getStarships(@Path("id") id: Long): Observable<StarshipsDTO>
+    fun getStarships(@Path("id") id: Long): Call<StarshipsDTO>
 }

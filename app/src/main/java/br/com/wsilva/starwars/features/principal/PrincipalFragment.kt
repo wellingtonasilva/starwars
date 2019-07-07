@@ -1,19 +1,19 @@
 package br.com.wsilva.starwars.features.principal
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
-import android.support.v4.view.ViewPager
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.wsilva.starwars.R
 import kotlinx.android.synthetic.main.lay_principal_fragment.*
 
-class PrincipalFragment: Fragment() {
+class PrincipalFragment: androidx.fragment.app.Fragment() {
 
     lateinit var mListPagerAdapter: PrincipalStatePagerAdapter
-    lateinit var mViewPager: ViewPager
+    lateinit var mViewPager: androidx.viewpager.widget.ViewPager
     lateinit var mBottomNavigationView: BottomNavigationView
 
     companion object {
@@ -37,9 +37,9 @@ class PrincipalFragment: Fragment() {
         mListPagerAdapter = PrincipalStatePagerAdapter(fragmentManager!!, arguments ?: Bundle())
 
         //ViewPage
-        mViewPager = view?.findViewById<ViewPager>(R.id.viewPager)!!
+        mViewPager = view?.findViewById<androidx.viewpager.widget.ViewPager>(R.id.viewPager)!!
         mViewPager.adapter = mListPagerAdapter
-        mViewPager.addOnPageChangeListener(object: ViewPager.SimpleOnPageChangeListener() {
+        mViewPager.addOnPageChangeListener(object: androidx.viewpager.widget.ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 when (position) {
                     PrincipalStatePagerAdapter.PAGE_HOME -> navigation.selectedItemId = R.id.navigation_home

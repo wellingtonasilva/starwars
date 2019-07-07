@@ -3,6 +3,7 @@ package br.com.wsilva.starwars.model.dto
 import com.google.gson.annotations.SerializedName
 
 data class SpeciesDTO(
+    var id: Long = 0,
     @SerializedName( "name") val name: String,
     @SerializedName( "classification") val classification: String,
     @SerializedName( "designation") val designation: String,
