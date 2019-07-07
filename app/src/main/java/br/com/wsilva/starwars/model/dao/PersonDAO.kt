@@ -21,4 +21,7 @@ interface PersonDAO: BasicDAO<PeopleEntity> {
 
     @Update
     override fun update(entity: PeopleEntity): Int
+
+    @Query("SELECT COUNT(1) FROM person WHERE _id = :id")
+    fun exist(id: Long) : Int
 }

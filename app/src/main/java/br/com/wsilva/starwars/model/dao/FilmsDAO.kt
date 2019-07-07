@@ -21,4 +21,7 @@ interface FilmsDAO: BasicDAO<FilmsEntity> {
 
     @Update
     override fun update(entity: FilmsEntity): Int
+
+    @Query("SELECT COUNT(1) FROM films WHERE _id = :id")
+    fun exist(id: Long) : Int
 }

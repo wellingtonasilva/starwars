@@ -16,7 +16,7 @@ data class SpeciesEntity(
     @ColumnInfo(name = "hair_colors") val hair_colors: String,
     @ColumnInfo(name = "eye_colors") val eye_colors: String,
     @ColumnInfo(name = "average_lifespan") val average_lifespan: String,
-    @ColumnInfo(name = "homeworld") val homeworld: String,
+    @ColumnInfo(name = "homeworld") val homeworld: String?,
     @ColumnInfo(name = "language") val language: String,
     @ColumnInfo(name = "created") val created: String,
     @ColumnInfo(name = "edited") val edited: String,

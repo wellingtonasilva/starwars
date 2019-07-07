@@ -14,6 +14,7 @@ class PeopleRepository(private val dao: PersonDAO): BasicRepository<PeopleEntity
     override fun delete(entity: PeopleEntity): Int = dao.delete(entity)
     override fun insert(entity: PeopleEntity): Long = dao.insert(entity)
     override fun update(entity: PeopleEntity): Int = dao.update(entity)
+    fun exist(id: Long): Boolean = dao.exist(id) > 0
 
     fun save(peopleId: Long, peopleDTO: PeopleDTO): PeopleDTO {
         var entity = get(peopleId)
@@ -22,7 +23,7 @@ class PeopleRepository(private val dao: PersonDAO): BasicRepository<PeopleEntity
                 created = peopleDTO.created, edited = peopleDTO.edited, gender = peopleDTO.gender,
                 hairColor = peopleDTO.hairColor, height = peopleDTO.height, homeworld = peopleDTO.homeWorldUrl,
                 mass = peopleDTO.mass, skinColor = peopleDTO.skinColor, url = peopleDTO.url,
-                eyeColor = peopleDTO.eyeColor)
+                eyeColor = peopleDTO.eyeColor, numberOfVehicles = peopleDTO.vehicles.size)
             insert(entity)
         }
         return peopleDTO
@@ -31,5 +32,17 @@ class PeopleRepository(private val dao: PersonDAO): BasicRepository<PeopleEntity
     fun save(list: List<PeopleDTO>): List<PeopleDTO> {
         list.forEach { item -> save(AppUtils.extractIdFromURL(item.url), item)}
         return list
+    }
+
+    fun updateSpecieName(peopleId: Long, name: String) {
+        val entity = get(peopleId)
+        entity.species = name
+        update(entity)
+    }
+
+    fun updateHomeland(id: Long, name: String) {
+        val entity = get(id)
+        entity.homeland = name
+        update(entity)
     }
 }

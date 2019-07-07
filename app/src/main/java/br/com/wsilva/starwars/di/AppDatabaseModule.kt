@@ -5,8 +5,10 @@ import androidx.room.Room
 import br.com.wsilva.starwars.model.dao.*
 import br.com.wsilva.starwars.model.db.AppDatabase
 import br.com.wsilva.starwars.model.repository.*
+import br.com.wsilva.starwars.service.RestApi
 import dagger.Module
 import dagger.Provides
+import io.reactivex.disposables.CompositeDisposable
 
 @Module
 class AppDatabaseModule {
@@ -130,14 +132,15 @@ class AppDatabaseModule {
     }
 
     @Provides
-    fun providesAppPeopleRepository(peopleRepository: PeopleRepository,
-                                    filmsRepository: FilmsRepository, peopleFilmsRepository: PeopleFilmsRepository,
-                                    speciesRepository: SpeciesRepository, peopleSpeciesRepository: PeopleSpeciesRepository,
-                                    vehiclesRepository: VehiclesRepository, starshipsRepository: StarshipsRepository,
-                                    peopleStarshipsRepository: PeopelStarshipsRepository, peopleVehiclesRepository: PeopleVehiclesRepository
-        ): AppPeopleRepository {
-        return AppPeopleRepository(peopleRepository, filmsRepository, peopleFilmsRepository, speciesRepository,
+    fun providesAppPeopleRepository(api: RestApi, bag: CompositeDisposable, schedulers: AppSchedulers,
+                                    peopleRepository: PeopleRepository, filmsRepository: FilmsRepository,
+                                    peopleFilmsRepository: PeopleFilmsRepository, speciesRepository: SpeciesRepository,
+                                    peopleSpeciesRepository: PeopleSpeciesRepository, vehiclesRepository: VehiclesRepository,
+                                    starshipsRepository: StarshipsRepository, peopleStarshipsRepository: PeopelStarshipsRepository,
+                                    peopleVehiclesRepository: PeopleVehiclesRepository, planetsRepository: PlanetsRepository,
+                                    peoplePlanetsRepository: PeoplePlanetsRepository): AppPeopleRepository {
+        return AppPeopleRepository(api, bag, schedulers, peopleRepository, filmsRepository, peopleFilmsRepository, speciesRepository,
             peopleSpeciesRepository, vehiclesRepository, starshipsRepository, peopleStarshipsRepository,
-            peopleVehiclesRepository)
+            peopleVehiclesRepository, planetsRepository, peoplePlanetsRepository)
     }
 }

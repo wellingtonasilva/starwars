@@ -13,6 +13,7 @@ class VehiclesRepository(private val dao: VehiclesDAO): BasicRepository<Vehicles
     override fun delete(entity: VehiclesEntity): Int = dao.delete(entity)
     override fun insert(entity: VehiclesEntity): Long = dao.insert(entity)
     override fun update(entity: VehiclesEntity): Int = dao.update(entity)
+    fun exist(id: Long) : Boolean = dao.exist(id) > 0
 
     fun save(vehicles: VehiclesDTO): Long {
         var entity = get(vehicles.id)

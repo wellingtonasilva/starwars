@@ -7,6 +7,7 @@ import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import br.com.wsilva.starwars.R
+import br.com.wsilva.starwars.di.AppPeopleRepository
 import br.com.wsilva.starwars.di.AppSchedulers
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -18,33 +19,38 @@ class SplashPresenter: SplashContract.Presenter {
     val view: SplashContract.View
     val bag: CompositeDisposable
     val schedulers: AppSchedulers
+    val repository: AppPeopleRepository
 
     @Inject
     constructor(view: SplashContract.View, bag: CompositeDisposable,
-                schedulers: AppSchedulers
+                schedulers: AppSchedulers, repository: AppPeopleRepository
     ) {
         this.view = view
         this.bag = bag
         this.schedulers = schedulers
+        this.repository = repository
     }
 
     override fun startAnimation(context: Context, ship1: android.view.View, ship2: android.view.View,
                                 logo: android.view.View) {
 
-        Observable.timer(1, TimeUnit.SECONDS)
-            .subscribeOn(schedulers.io())
-            .observeOn(schedulers.ui())
-            .subscribe { starAnimationLogo(context, logo) }
+        bag.add(
+            Observable
+                .timer(2, TimeUnit.SECONDS)
+                .repeat(20)
+                .subscribeOn(schedulers.io())
+                .observeOn(schedulers.ui())
+                .subscribe { starAnimationLogo(context, logo) }
+        )
 
-        Observable.timer(2, TimeUnit.SECONDS)
-            .subscribeOn(schedulers.io())
-            .observeOn(schedulers.ui())
-            .subscribe { startAnimationShips(context, ship1, ship2) }
-
-        Observable.timer(6, TimeUnit.SECONDS)
-            .subscribeOn(schedulers.io())
-            .observeOn(schedulers.ui())
-            .subscribe { view.showPrincipal() }
+        bag.add(
+            Observable
+                .timer(1, TimeUnit.SECONDS)
+                .repeat(10)
+                .subscribeOn(schedulers.io())
+                .observeOn(schedulers.ui())
+                .subscribe { startAnimationShips(context, ship1, ship2) }
+        )
     }
 
     override fun onDestroy() {
@@ -73,7 +79,16 @@ class SplashPresenter: SplashContract.Presenter {
         SpringAnimation(ship2, DynamicAnimation.TRANSLATION_Y, 950f).apply {
             spring.stiffness = SpringForce.STIFFNESS_VERY_LOW
             spring.dampingRatio = SpringForce.DAMPING_RATIO_HIGH_BOUNCY
+            setStartVelocity(2F)
             start()
         }
+    }
+
+    override fun loadAllPeople() {
+            repository.
+                loadAllPeople()
+                .observeOn(schedulers.ui())
+                .subscribeOn(schedulers.io())
+                .subscribe { view.showPrincipal()}
     }
 }

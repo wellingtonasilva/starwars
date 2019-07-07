@@ -21,4 +21,7 @@ interface StarshipsDAO: BasicDAO<StarshipsEntity> {
 
     @Update
     override fun update(entity: StarshipsEntity): Int
+
+    @Query("SELECT COUNT(1) FROM starships WHERE _id = :id")
+    fun exist(id: Long) : Int
 }

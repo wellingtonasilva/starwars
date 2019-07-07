@@ -10,6 +10,7 @@ interface SplashContract {
     }
 
     interface Presenter: BasicPresenter {
+        fun loadAllPeople()
         fun startAnimation(context: Context, ship1: android.view.View,
                            ship2: android.view.View, logo: android.view.View)
     }

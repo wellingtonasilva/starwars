@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import br.com.wsilva.starwars.model.dao.*
 import br.com.wsilva.starwars.model.entity.*
 
-@Database(version = 7,
+@Database(version = 12,
     entities = [
         PeopleEntity::class,
         PlanetsEntity::class,

@@ -24,4 +24,7 @@ interface PersonVehiclesDAO: BasicDAO<PeopleVehiclesEntity> {
 
     @Update
     override fun update(entity: PeopleVehiclesEntity): Int
+
+    @Query("SELECT COUNT(1) FROM person_vehicles WHERE person_id = :personId AND vehicles_id = :vehiclesId")
+    fun exist(personId: Long, vehiclesId: Long) : Int
 }

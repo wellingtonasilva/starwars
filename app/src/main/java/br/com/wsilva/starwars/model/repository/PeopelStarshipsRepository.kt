@@ -12,6 +12,7 @@ class PeopelStarshipsRepository(private val dao: PersonStarshipsDAO): BasicRepos
     override fun delete(entity: PeopleStarshipsEntity): Int = dao.delete(entity)
     override fun insert(entity: PeopleStarshipsEntity): Long = dao.insert(entity)
     override fun update(entity: PeopleStarshipsEntity): Int = dao.update(entity)
+    fun exist(personId: Long, starshipId: Long) : Boolean = dao.exist(personId, starshipId) > 0
 
     fun save(peopleId: Long, starshipId: Long): Boolean {
         var entity = getByPeopleIdAndStarshipId(peopleId, starshipId)

@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "person_planets")
 class PeoplePlanetsEntity(
-    @ColumnInfo(name = "person_id") val personId: Int,
-    @ColumnInfo(name = "planet_id") val planetId: Int
+    @ColumnInfo(name = "person_id") val personId: Long,
+    @ColumnInfo(name = "planet_id") val planetId: Long
 ) {
     @ColumnInfo(name = "_id")
     @PrimaryKey(autoGenerate = true)

@@ -6,7 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "planets")
 data class PlanetsEntity(
-    @ColumnInfo(name = "planet_id") val planetId: Int,
+    @PrimaryKey
+    @ColumnInfo(name = "_id") val id: Long,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "rotation_period") val rotation_period: String,
     @ColumnInfo(name = "orbital_period") val orbital_period: String,
@@ -19,8 +20,4 @@ data class PlanetsEntity(
     @ColumnInfo(name = "created") val created: String,
     @ColumnInfo(name = "edited") val edited: String,
     @ColumnInfo(name = "url") val url: String
-) {
-    @ColumnInfo(name = "_id")
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
-}
+)

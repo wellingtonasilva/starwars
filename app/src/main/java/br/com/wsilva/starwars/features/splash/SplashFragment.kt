@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import br.com.wsilva.starwars.AppApplication
 import br.com.wsilva.starwars.R
 import br.com.wsilva.starwars.core.BasicFragment
+import br.com.wsilva.starwars.di.AppDatabaseModule
 import br.com.wsilva.starwars.di.AppModule
 import br.com.wsilva.starwars.features.principal.PrincipalActivity
 import br.com.wsilva.starwars.features.splash.di.DaggerSplashComponent
@@ -32,6 +33,7 @@ class SplashFragment: BasicFragment(), SplashContract.View  {
         DaggerSplashComponent.builder()
             .splashModule(SplashModule(this))
             .appModule(AppModule(AppApplication.appComponent.application()))
+            .appDatabaseModule(AppDatabaseModule())
             .build()
             .inject(this)
     }
@@ -44,6 +46,7 @@ class SplashFragment: BasicFragment(), SplashContract.View  {
 
     override fun onResume() {
         super.onResume()
+        presenter.loadAllPeople()
         presenter.startAnimation(context!!, view!!.findViewById(R.id.imgShip1),
             view!!.findViewById(R.id.imgShip2), view!!.findViewById(R.id.imgLogo))
     }

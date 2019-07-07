@@ -13,6 +13,9 @@ interface PersonPlanetsDAO: BasicDAO<PeoplePlanetsEntity> {
     @Query("SELECT * FROM person_planets WHERE _id = :id")
     override fun get(id: Long): PeoplePlanetsEntity
 
+    @Query("SELECT * FROM person_planets WHERE person_id = :peopleId AND planet_id = :planetId")
+    fun getByPeopleIdAndPlanetId(peopleId: Long, planetId: Long): PeoplePlanetsEntity
+
     @Delete
     override fun delete(entity: PeoplePlanetsEntity): Int
 
@@ -21,4 +24,7 @@ interface PersonPlanetsDAO: BasicDAO<PeoplePlanetsEntity> {
 
     @Update
     override fun update(entity: PeoplePlanetsEntity): Int
+
+    @Query("SELECT COUNT(1) FROM person_planets WHERE person_id = :peopleId AND planet_id = :planetId")
+    fun exist(peopleId: Long, planetId: Long) : Int
 }

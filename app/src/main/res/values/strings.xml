@@ -4,7 +4,7 @@
     <string name="app_about">About</string>
     <string name="app_people_name">Name</string>
     <string name="app_especie">Species: %1$s</string>
-    <string name="app_vehicles">Vehicles: %1$s</string>
+    <string name="app_vehicles">Vehicles: %1$d</string>
     <string name="app_developer_name">Wellington A. Silva</string>
     <string name="app_born">Data Nascimento: 17/12/1977</string>
     <string name="app_github">GitHub: https://github.com/wellingtonasilva</string>
@@ -15,4 +15,6 @@
     <string name="app_veiculos">Veículos</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="app_star_war_people">Star Wars People</string>
+    <string name="app_nao_informado">Não informada</string>
+    <string name="app_filmes">Filmes</string>
 </resources>

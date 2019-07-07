@@ -24,4 +24,7 @@ interface PersonSpeciesDAO: BasicDAO<PeopleSpeciesEntity> {
 
     @Update
     override fun update(entity: PeopleSpeciesEntity): Int
+
+    @Query("SELECT COUNT(1) FROM person_species WHERE person_id = :personId AND species_id = :speciesId")
+    fun exist(personId: Long, speciesId: Long) : Int
 }

@@ -2,9 +2,6 @@ package br.com.wsilva.starwars.features.home
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +12,7 @@ import br.com.wsilva.starwars.di.AppModule
 import br.com.wsilva.starwars.features.detail.DetailActivity
 import br.com.wsilva.starwars.features.home.di.DaggerHomeComponent
 import br.com.wsilva.starwars.features.home.di.HomeModule
-import br.com.wsilva.starwars.model.dto.PeopleDTO
+import br.com.wsilva.starwars.model.entity.PeopleEntity
 import br.com.wsilva.starwars.util.AppUtils
 import kotlinx.android.synthetic.main.lay_home_fragment.*
 import javax.inject.Inject
@@ -55,9 +52,9 @@ class HomeFragment: androidx.fragment.app.Fragment(), HomeContract.View {
         presenter.loadAllPeople()
     }
 
-    override fun showPeople(list: List<PeopleDTO>) {
+    override fun showPeople(list: List<PeopleEntity>) {
         val adapter = HomeAdapter(activity!!, list, object: HomeAdapter.HomeAdapterListener {
-            override fun OnClickListener(people: PeopleDTO) = showDetail(AppUtils.extractIdFromURL(people.url),
+            override fun OnClickListener(people: PeopleEntity) = showDetail(AppUtils.extractIdFromURL(people.url),
                 people.name)
         })
         recyclerView.setHasFixedSize(true)

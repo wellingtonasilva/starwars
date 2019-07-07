@@ -33,7 +33,13 @@ class DetailPresenter: DetailContract.Presenter {
     }
 
     override fun loadPerson(id: Long) {
-
+        bag.add(
+            repository
+                .getPeople(id)
+                .observeOn(schedulers.ui())
+                .subscribeOn(schedulers.io())
+                .subscribe { it -> view.showGeneralInformation(it); loadVehicles(id) }
+        )
     }
 
     fun loadVehicles(peopleId: Long) {

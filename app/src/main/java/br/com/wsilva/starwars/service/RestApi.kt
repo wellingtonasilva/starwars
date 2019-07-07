@@ -26,4 +26,7 @@ interface RestApi {
 
     @GET("api/starships/{id}")
     fun getStarships(@Path("id") id: Long): Call<StarshipsDTO>
+
+    @GET("api/planets/{id}")
+    fun getPlanets(@Path("id") id: Long): Call<PlanetsDTO>
 }

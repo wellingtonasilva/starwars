@@ -12,6 +12,7 @@ class PeopleFilmsRepository (private val dao: PersonFilmsDAO): BasicRepository<P
     override fun delete(entity: PeopleFilmsEntity): Int = dao.delete(entity)
     override fun insert(entity: PeopleFilmsEntity): Long = dao.insert(entity)
     override fun update(entity: PeopleFilmsEntity): Int = dao.update(entity)
+    fun exist(peopleId: Long, filmsId: Long): Boolean = dao.exist(peopleId, filmsId) > 0
 
     fun save(peopleId: Long, filmsId: Long): Boolean {
         var entity = getByPeopleIdAndFilmsId(peopleId, filmsId)

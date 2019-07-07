@@ -1,20 +1,19 @@
 package br.com.wsilva.starwars.features.home
 
 import android.content.Context
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.wsilva.starwars.R
-import br.com.wsilva.starwars.model.dto.PeopleDTO
+import br.com.wsilva.starwars.model.entity.PeopleEntity
 import kotlinx.android.synthetic.main.lay_home_adapter.view.*
 
 class HomeAdapter(private val context: Context,
-                  private val list: List<PeopleDTO>,
+                  private val list: List<PeopleEntity>,
                   private val listener: HomeAdapterListener) : androidx.recyclerview.widget.RecyclerView.Adapter<HomeAdapter.ViewHolder>()
 {
     interface HomeAdapterListener {
-        fun OnClickListener(user: PeopleDTO)
+        fun OnClickListener(people: PeopleEntity)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
@@ -27,8 +26,8 @@ class HomeAdapter(private val context: Context,
     {
         val entity = list[position]
         holder.lblName.text = entity.name
-        holder.lblEspecie.text = context.getString(R.string.app_especie, entity.species)
-        holder.lblVehicles.text = context.getString(R.string.app_vehicles, entity.vehicles)
+        holder.lblEspecie.text = context.getString(R.string.app_especie, entity.species ?: context.getString(R.string.app_nao_informado))
+        holder.lblVehicles.text = context.getString(R.string.app_vehicles, entity.numberOfVehicles)
         holder.content.setOnClickListener { listener.OnClickListener(entity) }
     }
 

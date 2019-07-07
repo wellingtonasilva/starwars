@@ -52,7 +52,7 @@ class DetailFragment: BasicFragment(), DetailContract.View {
     {
         val view = inflater?.inflate(R.layout.lay_detail_fragment, container, false)
         activity!!.title = presenter.peopleName
-        view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { move() }
+        view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { }
 
         return view
     }
@@ -64,7 +64,7 @@ class DetailFragment: BasicFragment(), DetailContract.View {
 
     override fun showGeneralInformation(people: PeopleEntity) {
         lblGenero.text = people.gender
-        lblPlanetaNatal.text = people.homeworld
+        lblPlanetaNatal.text = people.homeland
         lblCorPele.text = people.skinColor
     }
 
@@ -77,14 +77,5 @@ class DetailFragment: BasicFragment(), DetailContract.View {
         rcvListaVeiculos.setHasFixedSize(true)
         rcvListaVeiculos.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         rcvListaVeiculos.adapter = adapter
-    }
-
-    fun move() {
-        val fab = view!!.findViewById<FloatingActionButton>(R.id.fab)
-        val fling = FlingAnimation(fab, DynamicAnimation.SCROLL_Y).apply {
-            setMinValue(0f)
-            friction = 1.1f
-            start()
-        }
     }
 }

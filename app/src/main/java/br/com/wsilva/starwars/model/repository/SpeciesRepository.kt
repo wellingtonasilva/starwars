@@ -12,6 +12,7 @@ class SpeciesRepository(private val dao: SpeciesDAO): BasicRepository<SpeciesEnt
     override fun delete(entity: SpeciesEntity): Int = dao.delete(entity)
     override fun insert(entity: SpeciesEntity): Long = dao.insert(entity)
     override fun update(entity: SpeciesEntity): Int = dao.update(entity)
+    fun exist(id: Long) : Boolean = dao.exist(id) > 0
 
     fun save(speciesDTO: SpeciesDTO): Long {
         var entity = get(speciesDTO.id)

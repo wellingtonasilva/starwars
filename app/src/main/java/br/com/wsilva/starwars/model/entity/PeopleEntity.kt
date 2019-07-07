@@ -19,5 +19,8 @@ data class PeopleEntity (
     @ColumnInfo(name = "homeworld") val homeworld: String,
     @ColumnInfo(name = "created") val created: String,
     @ColumnInfo(name = "edited") val edited: String,
-    @ColumnInfo(name = "url") val url: String
+    @ColumnInfo(name = "url") val url: String,
+    @ColumnInfo(name = "species") var species: String? = null,
+    @ColumnInfo(name = "nnvehicles") val numberOfVehicles: Int,
+    @ColumnInfo(name = "homeland") var homeland: String? = null
 )
